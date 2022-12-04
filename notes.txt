@@ -1,0 +1,1790 @@
+                                                                    WELCOME TO    CKA TRAINING:----
+                                                                    -------------------------------------------------------
+                                                                    
+                etherpad link:---    https://etherpad.opendev.org/p/admiralindia_cka
+                
+                How  to access recording:----   koening-solutions.com----
+                                                                      password:----    134959
+                                                                      user name:---     <your_official_email_id>
+               https://drive.google.com/file/d/1pm2_F-LXghhui6qQksnfC96FmLlTxo3-/view?usp=share_link 
+                
+                Break---
+                1> tea----- 15 minutes  (2 hours)
+                2> Lunch -----  45 minutes  (1:00-145pm)
+                3> tea --- 15 minutes ( 3:45-4:00pm)
+                
+                How to access lab:----      https://linuxlab.koenig-solutions.com
+                
+                
+                user name                                                 password
+                
+                
+                nov070y-cka       Pa$$w0rd0E      --------  gaurav   -----done
+               nov07ws-cka      Pa$$w0rdC#       --------- harman   ----done
+               nov07rr-cka        Pa$$w0rdw#      -------- sonu   ------- 
+               nov07ia-cka        Pa$$w0rdF]        ------ vipendra        done
+               nov13fe-cka       Pa$$w0rdFJ         -----  subhash        not done      
+               nov21mu-cka     Pa$$w0rduY        ------  ajay            --- not done
+               nov21if-cka         Pa$$w0rdmi        ----- pawan       ---- not done
+               nov21a7-cka       Pa$$w0rdc8        ----- abhishek    --- not done           
+               nov21aq-cka       Pa$$w0rdcv         ----- prateek       ---        
+               nov21jj-cka         Pa$$w0rdSR          --- [pranav       ----     
+              nov21qs-cka       Pa$$w0rdvx             ---- simran   ---- not done
+              nov21uq-cka       Pa$$w0rdAv      ------   yagya
+             nov07oo-cka           Pa$$w0rdYt  -------  virendra
+              
+              
+              
+       AZUREPASS:---       
+ Q4Q2YZM9KBLXM2D0MJ   -------------------------  ajay
+QY6LZXSF73PEPLB7ZK    --------------------  prateek
+QFEY0FB3BCMPPI4ZIH   ---------------------- vipendra
+QICWK07RYQFJ0RIID5 ---------------------   sonu
+QRXDDF0LZBCC5QIRFO ---------------------- harman
+Q04QRP2DF2KR3KD63C --------------------- pranav
+QI81Z2KY7W6CI04HOE   -------------------- subhash
+Q1GRGWIWFYBMR3FER9  ---------------------- yagya
+QF6RTV9TX3HO7E3BF2 ----------------------pawan
+QWYLP69GOB70NFDSR7   -------------------- abhishek
+QXMLC752XOP2C20P7I     -------------------  simran
+QS900RQQR0S27NEMY4     ---------------- GAURAV
+                
+                
+                What is container orchestration:--
+                Container orchestration automates the deployment, management, scaling, and networkingof  containers. Enterprises that need to deploy and manage hundreds or thousands of Linux containers so in this case we don’t want downtime so container orchestration will give this  facility
+                                                                    
+                pod:--- it is the smallest logical unit of k8s. container exists within the pod.  without pod container can't exist.
+                             pod will get the ip address , container will use this ip address.
+                             if we want we can create more than one container (multi container) in a pod.
+                             
+                             
+           What is k8s?
+           Kubernetes is an open source container orchestration platform that automates many of the manual processes involved in deploying, managing and scaling containerized applications.
+           
+           
+           •Open-source cluster management tool
+•Managed by Cloud Native Computing Foundation (CNCF); originally created by Google
+•Under active deployment by a well-supported community.  Kubernetes.io
+•Can run on both bare metal and on various cloud providers.                  
+                             
+                             
+                             STATIC POD:---
+                             api-server
+                             etcd
+                             controller-manager
+                             scheduler
+                             :Q
+                             
+                             All the static pods are managed by KUBELET
+                             /etc/kubernetes/manifests  ------>> maintained by kubelet    
+                             
+              components of master:---
+              -------------------------------
+              a> api-server
+              b> etcd
+              c> scheduler
+              d> control manager
+              e> kubelet
+              f> container-runtime
+              g> kube-proxy
+              
+              
+              components of worker/ agent-pool/data-plane:--
+              a> kubelet
+              b> container-runtime
+              c> kube-proxy  ------ calico
+              
+              
+              k8s- in cloud:---
+              AKS---- azure
+              EKS---- amazon
+              GKE--- goolgle
+              
+              k8s with support:---
+              ================
+              open-shift ------ Redhat
+              tanzu  --------- vmware
+              rancher ------ SUSE
+              
+              
+             :)  guys try now - VMware logins ar working now. GOOD LUCK
+             
+             
+             #systemctl  enable  --now crio
+             
+             
+             KUBERNETES INSTALLATION PROCESS:---
+
+
+
+====================================
+1> put hostname with ip mapping in /etc/hosts file in all three machine
+
+# scp -r  /etc/hosts   worker1:/etc/hosts
+# scp -r  /etc/hosts   worker1:/etc/hosts
+2> disable swap & firewalld
+  in production without stop firewalld add port no--- search in google      "kubernetes components ports"
+  
+  For check swap:---
+  #swapon -s
+  ###/dev/sdb3
+  #swapoff  /dev/sdb3
+  #vim /etc/fstab   
+  #/dev/sdb3
+
+3> we have already configured kubernetes.repo & crio.repo under /etc/yum.repos.d
+
+     note:--- for new machine:----
+              search---- cri-o in google---
+                         kubeadm  install cluster  ----- in google------   open first page--- select "installing kubeadm"
+                         ---- here we will get everything.
+
+4> install & start cri-o (in all machines)
+--------------------------------
+ #yum install cri-o* -ysysttem
+ #systemctl enable --now crio
+
+5> install kubectl kubeadm & kubelet (in all machines)
+ #yum install kubectl* kubeadm*  kubelet* -y
+
+
+
+6> start kubelet service:--- (in all machines)
+===============================
+#systemctl daemon-reload
+# systemctl enable kubelet
+#systemctl start kubelet
+
+
+note:--- for copy -------select with mouse
+         for paste:----  press -- shift+insert
+
+7>Run the following command in master node:--
+==============================================
+#kubeadm init --pod-network-cidr=10.244.0.0/16  ----------- to define the ip range for pod
+                                                     if  calico will be installed --it will give ip to pod
+                                                     from this range.
+
+If face any issue:--- to solve that:---
+#kubeadm reset
+#systemctl restart kubelet
+#systemctl enable kubelet
+
+#copy three commands from the output & paste it. (only on master node) 
+#now copy join commands from the output of kubeadm init command:---  (paste this command in worker1 & worker2 only)
+
+
+                       if it is required to join some worker node after creatining the cluster/rejoin the nodes:---
+#kubeadm token create --print-join-command
+#kubeadm token list 
+
+
+
+8> install calico (Only  on master node):---
+========================================
+
+to get that link:---  open google--- "calico network kubernetes install"---- open 1st link
+#wget http://raw.githubusercontent.com/projectcalico/calico/v3.24.0/manifests/calico.yaml
+
+now open calico.yaml & replce docker.io to quay.io in the entire file
+#vim ~/calico.yml
+
+replace docker.io ---- to--- quay.io
+
+****note:---  from nov-2020--we can download 200 images per public ip in 6 hours from Docker hub---- limitation
+
+Now install calico---
+#kubectl apply -f calico.yaml
+
+#kubectl get nodes  ------------------ to check the nodes in the cluster
+#kubectl get pods -A ------- to know all the pods including kubernets clusters pods 
+
+
+
+
+Bash completion:---
+--------------------------
+# kubectl completion bash > ~/.kube/kube.sh
+# source ~/.kube/kube.sh       ------->>> for temp change
+## vim ~/.bashrc      ------------------->>>>> for permanent change
+source $HOME/.kube/kube.sh
+
+For indentation:---
+================
+# vim ~/.vimrc
+set ai
+set ts=2
+set et
+set cursorcolumn
+
+
+
+Basic commands:---
+=====================
+# kubectl  get nodes
+# kubectl  get nodes -o wide   -----> more in-depth info
+ # kubectl describe nodes worker1 | less    ------------------------>>>> to know maximum detail o/p 
+
+
+
+image list:---
+
+quay.io/gauravkumar9130/mywebapp
+------------------------------------------/production:v1
+                                               /production:v2
+                                               /production:v3--v5
+                                               /hotel
+                                               /tea
+                                               /coffee
+                                               /mysql
+                                               /nginxdemo
+
+for pods:--
+# kubectl  get pods             
+
+How to create a pod:---
+------
+there are two methods for pod creation:---
+
+a> command :---
+# kubectl  run test-pod  --image quay.io/gauravkumar9130/mywebapp
+]# kubectl  get pods -o wide   ------->> ip address as well the worker system where the pod has created ---- will be able to know.
+# kubectl  describe pod test-pod | less
+# kubectl exec -it test-pod /bin/bash      -------------------->> to access a linux based container
+# kubectl exec -it test-pod /bin/sh      -------------------->> to access a unix based container
+
+
+# kubectl delete pod test-pod 
+
+
+
+b> yml/yaml file:---
+
+# kubectl explain pod | less
+
+#vim  friend.yml
+
+apiVersion: v1
+kind: Pod
+metadata:
+ name: tiger
+spec:
+ containers:
+ - name: jungle
+   image: quay.io/gauravkumar9130/mywebapp
+~                                          
+# kubectl  create -f friend.yml 
+# kubectl  apply -f friend.yml 
+
+# kubectl  delete -f friend.yml
+
+
+
+How to create a multi-container pod:--
+==============================
+apiVersion: v1      
+kind: Pod           
+metadata:           
+ name: multi-pod    
+spec:               
+ containers:        
+ - name: cont1      
+   image: nginx     
+                    
+ - name: cont2      
+   image: redis     
+                    
+ - name: cont3      
+   image: memcached
+~                   
+
+$ kubectl  exec -it multi-pod /bin/sh   -------------->> to access the default container
+$ kubectl  exec -it multi-pod -c cont2 /bin/sh     ------>> to access cont2
+$ kubectl  exec -it multi-pod -c cont3 /bin/sh     ------>> to access cont3
+
+
+
+
+
+ImagePullPolicy:-----
+=================
+How image will be pulled to create the pods.
+
+types:
+    a> Always:---- default policy
+    b> IfNotPresent---
+    c> Never-------
+
+ex:--- 
+via yml file:---
+---------------------------
+
+apiVersion: v1                   
+kind: Pod                        
+metadata:                        
+ name: image-pod                 
+spec:                            
+ containers:                     
+ - name: exam                    
+   image: quay.io/gauravkumar9130/mywebapp
+   imagePullPolicy: IfNotPresent
+   
+   in command line:----
+   ==========
+   # kubectl run pod101 --image quay.io/gauravkumar9130/mywebapp --image-pull-policy=IfNotPresent
+
+
+Day-2
+a> Labels & selectors:----------------------------------------------------------------
+  labels:----
+  labels helps us to group similer types resources in k8s  & it will help to findout the resources very easily in k8s.
+  labels  ------>>  key:value
+  ex:-----             sports=football
+                          key         value
+                          we can put multiple labels in  a single resource.
+   ex:------ pod100  ----->  sports=football, game=cricket, flower=lily
+                          we can't put  multiple value against the same key for the same resource
+   ex:----- pod100----> sports=football, sports=cicket ------ can't do it      
+   
+   labs:---
+   # kubectl get pods --show-labels 
+   # kubectl get pods --show-labels -o wide
+]# kubectl  label pods pod1 game=football
+# kubectl  label pods pod2 flower=lily game=cricket fruit=apple
+# kubectl label pod pod2 --overwrite game=football
+# kubectl label pods pod2 run-                          ----------->>>> to delete/remove a label
+
+for new pod:---
+--------------------
+via yml file
+
+apiVersion: v1                   
+kind: Pod                        
+metadata:                        
+ name: label-pod                 
+ labels:                         
+  fruit: apple                   
+  flower: lily                   
+  fifa: football                 
+spec:                            
+ containers:                     
+ - name: xyz                     
+   image: quay.io/gauravkumar9130/mywebapp
+   imagePullPolicy: IfNotPresent
+
+or
+
+# kubectl  run pod100 --image quay.io/gauravkumar9130/mywebapp --image-pull-policy IfNotPresent --labels fruit=banana
+
+
+selector:---
+IT helps us to findout specific types of resources on the basis of labels
+
+types:
+   a>  Equity/ Equality based selector:---   single key with single value
+   # kubectl  get pods --selector game=football
+   # kubectl  get pods --selector game=football --show-labels
+   
+   # kubectl  get pods --selector game!=football     --------------------->>> to know those pods whose labels are not game=football
+                             or
+    # kubectl  get pods --selector game!=football --show-labels                          
+
+   
+   
+   
+   
+   
+   b> Set based selector:---  single key with multiple values
+     operator:--
+
+     a> in   ----------------------- euqal to
+     b> notin ----------------- not equal to
+     
+     # kubectl get pods --selector 'game in(cycling,football)'
+     # kubectl get pods --selector 'game in(cycling,football)' --show-labels 
+# kubectl get pods -l 'game notin(cycling,football)' --show-labels 
+# kubectl get pods -l 'game in(cycling,football,cricket)' --show-labels 
+# kubectl get pods -l 'game in(cycling,football),fruit in(banana,apple)'  --show-labels
+
+
+
+                                        
+
+
+
+
+b> Replica:----
+It will create a group of pods & ensure to maintain the desired state of the pod with current state.
+If any pod gets deleted ----- it will be recreated automatcally.
+we can scale-up (increase the pods no) or scale-down (decrease the no of pods) .
+
+ReplicationController/rc:------  old tech  ------ it can only work with equity based selector
+ReplicaSet/rs:---  latest tech----- it can work both on equity based as well as set based selector.
+
+labs (rs with equity based selector)
+------------------------------------------------------
+# kubectl get rs
+# kubectl get replicaset
+# kubectl explain rs | less
+
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+ name: myreplica
+spec: 
+ replicas: 6
+ selector:
+  matchLabels:            #this is for equity based selector
+   fruit: banana
+ template:                     #setting for the new pods
+  metadata:
+   labels:
+    fruit: banana
+  spec:
+   containers:
+   - name: xyz
+     image: quay.io/gauravkumar9130/mywebapp
+     imagePullPolicy: IfNotPresent
+
+]# kubectl get rs  -o wide
+# kubectl  describe rs myreplica | less
+
+
+Scaling:---
+--------------
+# kubectl scale rs myreplica --replicas 15
+
+schedule mainenence:---
+-----------------------------
+# kubectl  get nodes
+# kubectl cordon worker2
+# kubectl drain worker2 --ignore-daemonsets --delete-emptydir-data --force 
+  after that do your schedule maintenence.
+  
+ # kubectl  get nodes
+# kubectl delete rs myreplica
+ 
+
+rs as set based (one key with multiple  value)
+-----------------------------------------------------------------
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata: 
+ name: myset-replica
+spec:
+ replicas: 6
+ selector:
+  matchExpressions:            #this is for set based selector
+  - key: fruit
+    operator: In
+    values:
+    - mango
+    - apple
+ template:                     #setting for the new pods
+  metadata:
+   labels:
+    fruit: mango
+  spec:  
+   containers:
+   - name: xyz
+     image: quay.io/gauravkumar9130/mywebapp
+     imagePullPolicy: IfNotPresent
+
+
+
+
+
+
+ 
+
+c> Service:---
+==============
+it will help to create a single entry point against our apps which is running inside the k8s cluster .
+by this service , we can access our apps very easily from inside or outside the cluster.
+
+
+Types:--
+a> ClusterIP:--- Default service type.  it is responsible for internal access of app . 
+b> NodePort:--  It is resposible for external access of the apps It 
+c> LoadBalancer:---:It is resposible for external access of the apps It 
+    
+    
+    
+    labs:--- (ClusterIP)
+    -----------------------------
+    step-1 (create replica)
+    --------------------------------------------
+    apiVersion: apps/v1                         
+kind: ReplicaSet                            
+metadata:                                   
+ name: test-replica                         
+spec:                                       
+ replicas: 5                                
+ selector:                                  
+  matchLabels:            #this is for equity based selector
+   fruit: banana                            
+ template:                     #setting for the new pods
+  metadata:                                 
+   labels:                                  
+    fruit: banana                           
+  spec:                                     
+   containers:                              
+   - name: xyz                              
+     image: quay.io/gauravkumar9130/mywebapp
+     imagePullPolicy: IfNotPresent  
+    
+    
+    step-2 (configure ClusterIP)
+    ======================
+    # kubectl  get svc
+    # kubectl  get service
+    # kubectl explain svc |less
+
+apiVersion: v1                                        
+kind: Service                                         
+metadata:                                             
+ name: my-cluster-svc                                 
+spec:                                                 
+ type: ClusterIP     #for internal access of the apps
+ ports:                                               
+ - targetPort: 80       #container apps port no       
+   port: 80            #bind port no with ClusterIP           
+ selector:                                            
+  fruit: banana                                       
+~                
+or
+
+]# kubectl expose rs test-replica --target-port 80 --port 80 --name=my-command-svc --type ClusterIP---------> for replica
+# kubectl expose pod pod100 --target-port 80 --port 80 --name my-pod-svc --type ClusterIP   -------------------->> for pod
+
+
+
+
+
+NodePort:---  
+--------->> for external access
+---------->>        30000-32767
+---------->> to access apps --->   master/worker/ip_of_master/ip_of_worker:<nodeport_no>
+
+lab:---
+via yml file:---
+---------------
+apiVersion: v1  
+kind: Service   
+metadata:       
+ name: my-nodesvc
+spec:           
+ type: NodePort    #for internal access of the apps
+ ports:         
+ - targetPort: 80       #container apps port no
+   port: 80            #bind port no with ClusterIP           
+   nodePort: 30000
+ selector:      
+  fruit: banana
+~                                                                 
+
+# kubectl expose rs test-replica --target-port 80 --port 80 --name my-node --type NodePort
+# kubectl  edit svc my-node
+# kubectl expose pod pod100 --target-port 80 --port 80 --name my-pod-node --type NodePort
+                                                                        
+~                                                           
+
+d> DaemonSet/ds:-----
+=================
+------>>> It will ensure that on each & every worker node one pod under daemonsets will run .
+------>>> if any further worker node added into the cluste --- automatically  ds will exapnd and create new pods in the new worker.
+------>>>  if we go for any schedule maintenence in worker node - all the pods will be deleted ---but there will be no impact on ds ----- they will continue their opertaion on the same worker node.
+---------->>>  use case ----- for logging & monitoring purpose.
+
+labs:---
+---------------
+# kubectl  get ds
+# kubectl  get daemonset
+# kubectl explain ds | less
+
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+ name: myds
+spec: 
+ selector:
+  matchLabels:
+   jungle: tiger
+ template:
+  metadata:
+   labels:
+     jungle: tiger
+  spec:
+   containers:
+   - name: xyz
+     image: quay.io/gauravkumar9130/mywebapp
+     imagePullPolicy: IfNotPresent
+~                                      
+
+
+
+# kubectl  get daemonset -o wide
+#kubectl delete ds <name_of_ds>
+
+
+
+e> Deployments:-------
+  ============
+  • A Deployment provides declarative updates for pods and replicasets. • You describe a desired state in a Deployment, and the Deployment Controller changes the actual state to the desired state at a controlled rate. You can define Deployments to create new ReplicaSets, or to remove existing Deployments and adopt all their resources with new Deployments.
+  
+  
+  Two types of built in strategies 
+  -> 1) RollingUpdate :---  
+               default if not defined new ReplicaSet is created, then scaled up as the old ReplicaSet is scaled down 
+  ) Recreate:---- 
+             removes all existing pods in the existing ReplicaSet first then creates new pods in the new ReplicaSet 
+             
+    labs:---
+    step-1 (create deployment)
+    ===============
+    # kubectl  get deploy
+# kubectl  get deployment
+]# kubectl  explain deploy |less
+apiVersion: apps/v1                 
+kind: Deployment                    
+metadata:                           
+ name: mydeploy                     
+spec:                               
+ replicas: 6                        
+ selector:                          
+  matchLabels:                     
+   fruit: apple                     
+ template:                          
+  metadata:                         
+   labels:                          
+    fruit: apple                    
+  spec:                             
+   containers:                      
+    - name: test                    
+      image: quay.io/gauravkumar9130/production:v1
+      imagePullPolicy: IfNotPresent
+
+step-2
+Expose deployment with service:---
+------
+apiVersion: v1 
+kind: Service  
+metadata:      
+ name: mydeploy-svc
+spec:          
+ type: ClusterIP
+ ports:        
+ - targetPort: 80
+   port: 80    
+ selector:     
+  fruit: apple 
+---            
+apiVersion: v1 
+kind: Service  
+metadata:      
+ name: mydeploy--nodesvc
+spec:          
+ type: NodePort
+ ports:        
+ - targetPort: 80
+   port: 80    
+   nodePort: 30001
+ selector:     
+  fruit: apple
+          
+or
+# kubectl expose deployment mydeploy --target-port 80 --port 80 --name my-deploy-cmd --type ClusterIP
+co
+
+step-3:---
+version upgradation:---
+------------------------  
+ # kubectl set image deployment mydeploy test=quay.io/gauravkumar9130/production:v2 --record
+# kubectl set image deployment mydeploy test=quay.io/gauravkumar9130/production:v3 --record
+# kubectl set image deployment mydeploy test=quay.io/gauravkumar9130/production:v4 --record
+
+# kubectl set image deployment mydeploy test=quay.io/gauravkumar9130/production:v5 --record
+
+lab-4
+How to check deployment history
+ # kubectl rollout history deployment mydeploy
+ 
+ lab-5 
+ for rollback:---
+ ===========
+ # kubectl  rollout undo deployment mydeploy 
+ # kubectl  rollout undo deployment mydeploy --to-revision 2
+# kubectl edit deployments.apps mydeploy 
+
+lab-6 
+scaling of deployments:--
+===============
+# kubectl scale deployment mydeploy --replicas 2
+
+lab-7 
+schedule maintenence:---
+---------
+# kubectl  get nodes
+# kubectl  cordon worker1
+# kubectl  drain worker1 --ignore-daemonsets --delete-emptydir-data --force
+# kubectl uncordon worker1
+
+
+For recreate:--
+=========
+apiVersion: apps/v1
+kind: Deployment 
+metadata:        
+ name: mydeploy-1
+spec:            
+ strategy:       
+  type: Recreate
+ replicas: 6     
+ selector:       
+  matchLabels:   
+   fruit: apple  
+ template:       
+  metadata:      
+   labels:       
+    fruit: apple 
+  spec:          
+   containers:   
+    - name: test 
+      image: quay.io/gauravkumar9130/production:v1
+      imagePullPolicy: IfNotPresent
+      
+      
+      
+      2nd process of deployment:---
+      ==================
+      (we will devide customer traffic b/w old & new deployment)
+      ---------------------
+      step-1
+      -------
+      (create old deployment)---- old version of apps
+      
+      apiVersion: apps/v1      
+kind: Deployment          
+metadata:                 
+ name: old-deploy         
+spec:                     
+ replicas: 6              
+ selector:                
+  matchLabels:            
+   fruit: banana           
+ template:                
+  metadata:               
+   labels:                
+    fruit: banana         
+  spec:                   
+   containers:            
+    - name: test          
+      image: quay.io/gauravkumar9130/production:v1
+      imagePullPolicy: IfNotPresent
+
+
+step-2 
+expose this apps with service:--
+-----------
+# kubectl  expose deployment old-deploy --target-port 80 --port 80 --name combo-svc --type ClusterIP
+# kubectl get svc -o wide
+
+step-3
+---------
+create new deployment with same label:---
+-------
+apiVersion: apps/v1                                
+kind: Deployment                                   
+metadata:                                          
+ name: new-deploy                                  
+spec:                                              
+ replicas: 4                                       
+ selector:                                         
+  matchLabels:                                     
+   fruit: banana                                   
+ template:                                         
+  metadata:                                        
+   labels:                                         
+    fruit: banana                                  
+  spec:                                            
+   containers:                                     
+    - name: test                                   
+      image: quay.io/gauravkumar9130/production:v3
+      imagePullPolicy: IfNotPresent 
+
+ type-3 (BLUE GREEN DEPLOYMENT)
+ ---------------
+ blue----- old apps
+ green ----- new apps
+ (to switch b/w old & new apps as per the requiremnt)
+ 
+ step-1 
+ create blue/old deployments:--
+ -----------
+ apiVersion: apps/v1                               
+kind: Deployment                                   
+metadata:                                          
+ name: blue-deploy                                 
+spec:                                              
+ replicas: 6                                       
+ selector:                                         
+  matchLabels:                                     
+   apps: blue                                      
+ template:                                         
+  metadata:                                        
+   labels:                                         
+    apps: blue                                     
+  spec:                                            
+   containers:                                     
+    - name: test                                   
+      image: quay.io/gauravkumar9130/production:v1
+      imagePullPolicy: IfNotPresent 
+ 
+ step-2 
+ ----------
+map service against old/blue deployment:---
+---------
+# kubectl  expose deployment blue-deploy --target-port 80 --port 80 --name=blue-green-svc --type ClusterIP
+
+step-3 
+create green/new deployment with new selector:--
+-----------
+apiVersion: apps/v1
+kind: Deployment
+metadata:       
+ name: green-deploy
+spec:           
+ replicas: 5    
+ selector:      
+  matchLabels:  
+   apps: green  
+ template:      
+  metadata:     
+   labels:      
+    apps: green
+  spec:         
+   containers:  
+    - name: test
+      image: quay.io/gauravkumar9130/production:v3
+      imagePullPolicy: IfNotPresent
+
+step-4:---
+switch  sevice from old/blue to green/new:--
+# kubectl edit svc blue-green-svc 
+
+ 
+ 
+ 
+ g> namespace:-----
+       ----->>  it creates virtual clusters on the top of physical k8s cluster.
+       ----->>  in every ns , resource will be isolated from one ns to another
+       ----->> 
+       
+       labs:---
+       create ns:--
+       -------------
+         # kubectl  get pods -n india
+        # kubectl  get pods -A |less
+        # kubectl  get svc -A
+        # kubectl explain ns |less
+      apiVersion: v1 
+kind: Namespace 
+metadata:       
+ name: saturday
+
+# kubectl  create ns sunday
+
+lab-2  
+create resource in ns:--
+---------------
+apiVersion: v1                   
+kind: Pod                        
+metadata:                        
+ name: pod1                      
+ namespace: sunday                        
+ labels:                         
+  fruit: apple                   
+  flower: lily                   
+spec:                            
+ containers:                     
+ - name: xyz                     
+   image: quay.io/gauravkumar9130/mywebapp
+   imagePullPolicy: IfNotPresent
+~                                
+
+# kubectl  get pods -n sunday 
+# kubectl  run pod2 --image quay.io/gauravkumar9130/mywebapp --image-pull-policy IfNotPresent --labels app=green -n sunday 
+# kubectl expose pod pod2 -n sunday --target-port 80 --port 80 --name pod1 --type ClusterIP
+#kubectl get svc -n sunday
+how to access a pod from a ns:---
+----------
+# kubectl exec -it -n sunday pod2 /bin/sh
+
+lab-3
+change default ns:---
+--------------------------
+# kubectl config set-context $(kubectl config current-context) --namespace=india
+# kubectl config get-contexts      ------>>> to know the name of the default ns
+
+lab-4 
+ResourceQuota in ns:---
+
+for h/w  / compute resource:--
+requests---   minimum 
+ requests.cpu: "100m"
+limits---  maximum
+  limits.cpu: "300m"
+  
+  
+  # kubectl get resourcequotas
+# kubectl get resourcequotas -n india 
+# kubectl explain resourcequotas | less
+
+apiVersion: v1           
+kind: ResourceQuota      
+metadata:                
+ name: govt-quota        
+ namespace: india        
+spec:                    
+ hard:                   
+  pods: "6"              
+  services: "5"          
+  requests.cpu: "100m"    
+  requests.memory: "500Mi"
+  limits.cpu: "150m"     
+  limits.memory: "750Mi"
+
+lab-
+How to create a pod with resource limit in quota:---
+--------------
+apiVersion: v1      
+kind: Pod           
+metadata:           
+ name: pod11        
+ namespace: india   
+spec:               
+ containers:        
+ - name: xyz        
+   image: quay.io/gauravkumar9130/mywebapp
+   imagePullPolicy: IfNotPresent
+   resources:       
+    requests:       
+     memory: "100Mi"
+     cpu: "10m"     
+    limits:         
+     memory: "150Mi"
+     cpu: "12m"
+
+]# kubectl describe pods -n india pod11 |less
+
+lab-6
+How  to change further limit of resourcequota of a ns:---
+------
+# kubectl  edit resourcequotas -n india govt-quota 
+]# kubectl  delete resourcequotas -n india govt-quota 
+
+
+
+
+
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ h> Environment variable    :--
+ -------------
+ With this process we can inject variables & values in Pod during its creation.       kubernetes.io
+ Different method:---
+ a> PlainKey
+ b> ConfigMap:---- dictioanry will be in the text format
+ c> Secret:---  dictioanry will be in the base64 encrypted format
+ 
+MYSQL_USER   -----> to create user a/c
+MYSQL_PASSWORD  -------> to set user password
+MYSQL_ROOT_PASSWORD  -----> to set root password
+MYSQL_DATABASE -------> to create new database
+ 
+ 
+ 
+ lab:--- 
+ plainKey---
+ 
+ apiVersion: v1      
+kind: Pod            
+metadata:            
+ name: plaindata-pod  
+spec:                
+ containers:         
+ - name: xyz         
+   image: quay.io/gauravkumar9130/mysql
+   imagePullPolicy: IfNotPresent
+   env:              
+   - name: MYSQL_USER 
+     value: sree     
+                     
+   - name: MYSQL_PASSWORD
+     value: redhat@123
+                     
+   - name: MYSQL_ROOT_PASSWORD
+     value: redhat   
+                     
+   - name: MYSQL_DATABASE
+     value: worldcup
+
+ 
+# kubectl  exec -it plaindata-pod /bin/bash
+# env
+# mysql -u sree -p
+ show databases;
+ 
+ 
+ lab-2
+ configMap/cm:---
+ ---------------
+ # kubectl  get cm
+
+ # kubectl create cm test-config --from-literal=MYSQL_USER=sonu --from-literal=MYSQL_PASSWORD=redhat@123 --from-literal=MYSQL_ROOT_PASSWORD=redhat --from-literal=MYSQL_DATABASE=football
+# kubectl describe cm test-config   ------->> to see variables & values
+
+apiVersion: v1      
+kind: Pod           
+metadata:           
+ name: plaindata-pod
+spec:               
+ containers:        
+ - name: xyz        
+   image: quay.io/gauravkumar9130/mysql
+   imagePullPolicy: IfNotPresent
+   envFrom:         
+   - configMapRef:  
+       name: test-config
+
+ lab-3
+ secret:--- (base64 encrypted format)
+ --------------
+ # kubectl  get secrets
+# kubectl  get secrets -n india 
+# kubectl create secret generic test-sec --from-literal=MYSQL_USER=sonu --from-literal=MYSQL_PASSWORD=redhat@123 --from-literal=MYSQL_ROOT_PASSWORD=redhat --from-literal=MYSQL_DATABASE=football
+
+# kubectl describe secrets test-sec 
+
+apiVersion: v1      
+kind: Pod           
+metadata:           
+ name: sec-data-pod 
+spec:               
+ containers:        
+ - name: xyz        
+   image: quay.io/gauravkumar9130/mysql
+   imagePullPolicy: IfNotPresent
+   envFrom:         
+   - secretRef:     
+      name: test-sec
+
+# kubectl  get cm test-config -o yaml > test.yml 
+ 
+ i> storage:---
+ j> security
+ k> loabBalancer with Ingress     :---
+ 
+ loadbalancer:---
+ LABS---- (on prem)
+ step-1                                                                             
+--------
+install loadbalancer (metallb)
+---------------
+# wget https://raw.githubusercontent.com/metallb/metallb/v0.13.7/config/manifests/metallb-native.yaml
+# kubectl apply -f metallb-native.yaml 
+# kubectl  get ns     ----->> metallb-system ns will be created
+# kubectl  get pods -n metallb-system 
+
+step-2 
+configure metallb:--
+------------------------
+# kubectl get ipaddresspool
+# kubectl get ipaddresspool -n metallb-system
+# kubectl explain ipaddresspool|less
+
+apiVersion: metallb.io/v1beta1 
+kind: IPAddressPool            
+metadata:                      
+ name: first-pool              
+ namespace: metallb-system     
+spec:                          
+ addresses:                    
+ - 172.25.230.10-172.25.230.30
+~                             
+
+step-3 (form this step we need perform in cloud k8s)
+---------------
+deploy apps:---
+# kubectl  create deployment dep1 --image quay.io/gauravkumar9130/mywebapp --replicas 5
+# kubectl  create deployment dep2 --image quay.io/gauravkumar9130/production:v1 --replicas 5
+# kubectl  run pod1 --image quay.io/gauravkumar9130/production:v3  --image-pull-policy IfNotPresent
+
+
+step-4:---
+map apps against LoadBalancer
+# kubectl  expose deployment dep1 --target-port 80 --port 80 --name dep1 --type LoadBalancer
+# kubectl  expose deployment dep2 --target-port 80 --port 80 --name dep2 --type LoadBalancer
+# kubectl  expose pod pod1 --target-port 80 --port 80 --name pod1 --type LoadBalancer
+
+
+Ingress:---- (routing rule)
+All the steps need to perform in every where:---
+------------------
+
+step-1
+install ingress:---   (ingress-nginx)
+# git clone https://github.com/kubernetes/ingress-nginx
+# cd ingress-nginx/deploy/static/provider/cloud
+# kubectl apply -f deploy.yaml 
+# kubectl  get ns     ---->> new ns ingress-nginx will be created
+# kubectl  get pods -n ingress-nginx 
+
+step-2
+--------
+create apps
+# kubectl  create deployment hotel --image quay.io/gauravkumar9130/hotel --replicas 5
+# kubectl  create deployment tea --image quay.io/gauravkumar9130/tea --replicas 5
+# kubectl  create deployment coffee --image quay.io/gauravkumar9130/coffee --replicas 5
+
+
+step-3:--
+(map apps against clusterip)
+# kubectl  expose deployment hotel --target-port 80 --port 80 --name hotel-svc --type ClusterIP
+# kubectl  expose deployment tea --target-port 80 --port 80 --name tea-svc --type ClusterIP
+# kubectl  expose deployment coffee --target-port 80 --port 80 --name coffee-svc --type ClusterIP
+
+
+step-4:
+ Create routing rules in ingress:--
+ 
+ # kubectl  explain ingress |less
+apiVersion: networking.k8s.io/v1
+kind: Ingress   
+metadata:       
+ name: hotel-ingress
+ annotations:   
+  kubernetes.io/ingress.class: nginx
+spec:           
+ rules:         
+ - http:        
+    paths:      
+    - path: /    #home directory  or main page
+      pathType: Prefix
+      backend:  
+       service: 
+        name: hotel-svc
+        port:   
+         number: 80
+                
+
+    - path: /tea
+      pathType: Prefix
+      backend:  
+       service: 
+        name: tea-svc
+        port:   
+         number: 80
+                
+    - path: /coffee
+      pathType: Prefix
+      backend:  
+       service:
+        name: coffee-svc
+        port:   
+         number: 80
+~                          
+    
+# kubectl get svc -n ingress-nginx
+
+
+
+
+
+
+
+
+
+
+l>  kubernetes logs & monitoring
+m> init & sidecar container
+n> cronjob
+o> troubleshooting
+p> etcd backup restore, cluster upgradation, static pod
+
+
+
+
+security:-----
+========
+There  are two types accounts we can create in k8s.
+a> service account/ sa:---
+---->> bydefault one sa known as default sa created in every ns 
+------>> default sa attached with all the resources that we create in the same ns.
+------>> sa is responsible for resource authentication from api server.
+------>> if it is required , we can create new sa & attach new resource with the new sa.
+
+labs:---
+How to create a sa:--
+# kubectl  get sa
+# kubectl get sa -n saturday 
+# kubectl explain sa |less
+
+apiVersion: v1     
+kind: ServiceAccount
+metadata:          
+ name: weekday     
+ namespace: monday
+~                 
+# kubectl  get sa -n monday 
+# kubectl  create sa weekoff -n monday
+
+How tO attach a new resource with a specific sa:---
+-----------------
+apiVersion: v1         
+kind: Pod              
+metadata:              
+ name: football        
+ namespace: monday     
+spec:                  
+ containers:           
+ - name: xyz           
+   image: quay.io/gauravkumar9130/mywebapp
+   imagePullPolicy: IfNotPresent
+ serviceAccountName: weekday
+
+
+
+
+b> user account:---
+   ------->> to manege k8s cluster & resources
+   
+   How to craete u/a  in k8s cluster:---
+   # git clone https://github.com/gauravkumar9130/kube-user
+   # cd kube-user/
+   # chmod +x user_script.sh
+# mkdir ~/sonu
+# cp user_script.sh ~/sonu
+#  cd ~/sonu
+# ./user_script.sh
+
+
+ASsign privilege:---
+-------------
+RBAC (role based access control)
+-------------------
+area:---
+a> namespace wide:---
+    1> role:---     LIST OF TASK-----VERB WITH RESOURCES------PODS,SERVICS,DEPLOYMENTS
+    2> rolebinding:--  AsSign this to user/sa
+    
+    labs:---
+    how to create role:---
+    --------------
+    role:---
+    # kubectl get role 
+    # kubectl get role  -n tuesday
+# kubectl create role role1 -n tuesday --verb create,get,list  --resource pods,services,deployments
+# kubectl  describe role -n tuesday role1 
+
+
+     rolebinding:--
+     # kubectl  get rolebinding -n tuesday
+# kubectl create rolebinding rolebind1 --role role1 -n tuesday --user sonu
+# kubectl describe rolebindings.rbac.authorization.k8s.io  -n tuesday rolebind1 
+# kubectl create rolebinding rolebind1 --role role1 -n tuesday --serviceaccount tuesday:xyz   -------->> for sa
+
+# kubectl  delete rolebindings.rbac.authorization.k8s.io  -n tuesday rolebind1 rolebind2 
+
+
+how to edit role:---
+# kubectl  edit role -n tuesday role1 
+
+    
+    
+    
+    
+b> clusterwide:--
+   1> clusterrole:----LIST OF TASK-----VERB WITH RESOURCES------PODS,SERVICS,DEPLOYMENTS
+   2> clusterrolebinding:---AsSign this to user/sa
+   
+   labs:---
+   # kubectl  get clusterrole |less
+   # kubectl create clusterrolebinding sonu-bind --clusterrole cluster-admin --user sonu  
+   # kubectl create clusterrolebinding ser-bind --clusterrole cluster-admin --serviceaccount tuesday:xyz
+
+# kubectl delete clusterrolebindings.rbac.authorization.k8s.io sonu-bind
+# kubectl  create clusterrole sonu-cluster-role  --verb create,delete,list,get --resource pods,services,namespaces
+# kubectl  create clusterrolebinding sonu-binding  --clusterrole sonu-cluster-role --user sonu
+
+
+# kubectl auth can-i create user
+ kubectl auth can-i create pod --as sonu
+ # kubectl auth can-i create service --as sonu
+                          
+                                                                                           
+                                     -------------------------------------------------
+           STORAGE:---
+           ==========
+           Types:---
+           a> ephemeral storage:--- (temp storage)
+              ex:   emptyDir:
+                  lab:--
+                  emptyDir:--
+                  
+apiVersion: v1 
+kind: Pod      
+metadata:      
+ name: empty-pod      
+spec:          
+ containers:   
+ - name: xyz   
+   image: quay.io/gauravkumar9130/mywebapp
+   imagePullPolicy: IfNotPresent
+   volumeMounts:      
+   - name: india      
+     mountPath: /delhi
+ volumes:      
+ - name: india 
+   emptyDir: {}
+
+                  
+                  
+                  
+                  
+                  
+            b> persistent storage:---    (permanent storage)   
+                  HostPath:---- The storage will be created on that worrrrrrker node ----where the pod will be created .  It will be persistent storage.
+                  
+                  pv:--- (persistent volume)  ------>> this is storage
+                  
+                  accessModes:---
+                  ReadWriteMany:---  (best)
+                  ReadWriteOnce
+                  ReadOnlyMany
+                  
+                  
+                  storageClassName:----  storage drive  --->   csi-hostpath-sc   <---HostPath
+                  
+                  pvc :--- (persistent volume claim)
+                  pods
+                  
+                  labs:---
+                  step-1 (create pv/storage)
+                  ---------------
+                  # kubectl  get pv
+                  ]# kubectl  explain pv |less
+                   
+                   apiVersion: v1    
+kind: PersistentVolume            
+metadata:         
+ name: pv1        
+spec:             
+ accessModes:     
+ - ReadWriteMany  
+ storageClassName: csi-hostpath-sc
+ capacity:        
+  storage: "2Gi"  
+ hostPath:        
+  path: /football
+
+
+step-2
+create pvc:--
+
+# kubectl  get pvc
+apiVersion: v1                    
+kind: PersistentVolumeClaim       
+metadata:         
+ name: pvc1       
+spec:             
+ accessModes:                     
+ - ReadWriteMany                  
+ storageClassName: csi-hostpath-sc
+ resources:       
+  requests:       
+   storage: "2Gi"
+
+                                                               
+step-3:--
+create pod:--
+
+apiVersion: v1      
+kind: Pod           
+metadata:           
+ name: pv-pvc-pod   
+spec:               
+ containers:        
+ - name: xyz        
+   image: quay.io/gauravkumar9130/mywebapp
+   imagePullPolicy: IfNotPresent
+   volumeMounts:    
+   - name: worldcup 
+     mountPath: /fifa
+ volumes:           
+ - name: worldcup   
+   persistentVolumeClaim:
+    claimName: pvc1
+
+]# kubectl  get pods -o wide
+# kubectl  exec -it pv-pvc-pod /bin/sh
+
+
+
+
+crentral storage:---
+nfs storage:---
+
+step-1 
+create nfs server & share the folder:---
+------------------
+]# yum install nfs-utils* -y
+# mkdir /training
+# chmod 1777 /training
+
+for nfs sharing:--
+#vim /etc/exports
+/training       *(rw,sync)
+
+# systemctl restart nfs-server.service 
+# systemctl enable nfs-server.service
+
+step-2 
+create pv and connect with nfs:---
+# showmount -e 172.25.231.100
+
+apiVersion: v1                 
+kind: PersistentVolume         
+metadata:                      
+ name: nfs-pv1                 
+spec:                          
+ accessModes:                  
+ - ReadWriteMany               
+ storageClassName: nfs-storage
+ capacity:                     
+  storage: "2Gi"               
+ nfs:                          
+  server: 172.25.231.100       
+  path: /training              
+~                
+
+
+step-3
+create pvc:---
+------------------
+apiVersion: v1                 
+kind: PersistentVolumeClaim    
+metadata:                      
+ name: nfs-pvc1                
+spec:                          
+ accessModes:                  
+ - ReadWriteMany               
+ storageClassName: nfs-storage
+ resources:                    
+  requests:                    
+   storage: "2Gi"   
+                                                                    
+                                                                    
+  step-4
+  crreate pod and connect with nfs-pvc1
+  --------------------
+  apiVersion: v1    
+kind: Pod         
+metadata:         
+ name: nfs-pv-pvc-pod1
+spec:             
+ containers:      
+ - name: xyz      
+   image: quay.io/gauravkumar9130/mywebapp
+   imagePullPolicy: IfNotPresent
+   volumeMounts:  
+   - name: worldcup
+     mountPath: /fifa
+ volumes:         
+ - name: worldcup 
+   persistentVolumeClaim:
+    claimName: nfs-pvc1
+
+
+
+for deployment:---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+ name: my-deploy
+spec: 
+ replicas: 5
+ selector:
+  matchLabels:
+   app: soft
+ template:
+  metadata:
+   labels:
+    app: soft
+  spec:
+   containers:
+   - name: xyz
+     image: quay.io/gauravkumar9130/mywebapp
+     imagePullPolicy: IfNotPresent
+     volumeMounts:
+     - name: india
+       mountPath: /fifa
+   volumes:
+   - name: india
+     persistentVolumeClaim:
+      claimName: nfs-pvc1
+                                                                  
+                                                                    
+                                                            
+                                                            
+                                                            
+                                                            
+        logging & monitoring:----
+        =====================   
+        basic commands:---  
+        #kubectl logs <pod_name>
+        #kubectl logs <pod_name> -c <cont_name>   -----> to check the log of a specific container
+                
+        prometheus with grafana:---
+        -------------------------
+        prometheus----- log collection tool
+        grafana ------ it creates monitoring dashboard
+        
+        labs:---
+        # git clone https://github.com/gauravkumar9130/grafana
+# kubectl apply -f grafana/1-prometheus/.
+# kubectl apply -f grafana/2-grafana/.
+# kubectl  get ns     ------>> one ns monitoring will be created
+# kubectl  get pods -n monitoring 
+# kubectl  get svc -n monitoring 
+http://172.25.230.14:3000
+
+defaultusername: admin
+defaultpassword: admin
+
+after login - dashboard: import:
+    id: 6417: then clock on load
+    
+    select promotheus-in drp down select promotheus- import
+        
+        
+        
+        kubernetes-dashboard:---        
+        # wget https://raw.githubusercontent.com/kubernetes/dashboard/v2.0.3/aio/deploy/recommended.yaml
+        # kubectl  apply -f recommended.yaml
+        # kubectl  get ns       -----> kubernetes-dashboard ns will be created
+        # kubectl  create clusterrolebinding dashboard --clusterrole cluster-admin --serviceaccount kubernetes-dashboard:kubernetes-dashboard
+        # kubectl create token -n kubernetes-dashboard kubernetes-dashboard 
+
+                                      
+                                                                    
+                                                         
+                                                         
+                                                         
+                                                         
+           cronjob:--------
+           task schedule 
+           
+           minutes            hour              day_of_the_month               month              day_of_the_week               task
+           (0-59)             (0-23)                 (1-31)                                     (1-12)               0-7           0/7------- sunday, 1--monday, 2---tuesday,  6-saturday
+           
+           27th nov sunday at 1:51pm
+             51                     13                        27                                         11                      7
+             
+            every  27th nov at 1:51pm
+            
+            51                     13                        27                                         11                      *
+            
+            every day of nov at 1:51pm
+             51                     13                        *                                         11                      *
+             
+             every day at 1:51pm
+              51                     13                        *                                         *                      *
+              
+              every 2 hours:--
+              *                         */2                        *                                        *                      *
+              
+              every 1 minute
+               *                         *                       *                                        *                      *
+                */1                         *                       *                                        *                      *
+           
+           
+           
+           '
+            Cronjob example:---             (for both cka & ckad)
+=====================
+
+# kubectl  explain cronjob |less
+
+
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: hello
+spec:
+  schedule: "* * * * *"         #the task wil done at every one minute
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: hello
+            image: busybox:1.28
+            imagePullPolicy: IfNotPresent
+            command:
+            - /bin/sh
+            - -c
+            - date; pwd; echo Hello from the Kubernetes cluster
+          restartPolicy: OnFailure
+ 
+ 
+ #kubectl get cronjobs
+
+
+Init-container & Sidecar-container:---
+
+Kubernetes init containers:---
+
+Init Container
+==============================
+#vim init.yml
+apiVersion: v1
+kind: Pod
+metadata:
+ name: web-pod
+spec:
+ volumes:
+ - name: myvol
+   emptyDir: {}
+ containers:
+ - name: maincontainer
+   image: quay.io/gauravkumar9130/nginx
+   volumeMounts:
+   - name: myvol
+     mountPath: /usr/share/nginx/html
+ initContainers:
+ - name: init1
+   image: quay.io/gauravkumar9130/busybox
+   command: ["wget","-O","/webfolder/index.html","https://download.docker.com/linux/centos/docker-ce.repo"]
+   volumeMounts:
+   - name: myvol
+     mountPath: /webfolder 
+
+Kubernetes sidecar containers:----
+
+apiVersion: v1
+kind: Pod
+metadata:
+  name: webserver
+spec:
+  volumes:
+    - name: website-vol
+      emptyDir: {}
+
+  containers:
+    - name: nginx
+      image: nginx
+      volumeMounts:
+        - name: website-vol
+          mountPath: /usr/share/nginx/html
+
+    - name: sidecar-container
+      image: quay.io/gauravkumar9130/ubuntu-git
+      command: ["sh","-c","while true; do git clone https://github.com/gauravkumar9130/webpage; sleep 10;cd webpage;cp * /downloadweb/;done"]
+      volumeMounts:
+        - name: website-vol
+          mountPath: /downloadweb
+
+ kubectl exec -it multi-pod -c memcached /bin/sh
+ 
+ 
+ 
+ 
+ 
+ static pod:--
+ --------------
+ -----> /etc/kubernetes/manifests  ----> location for static pod in any node in the cluster
+ -------->> it is maintained by kubelet
+ -------->> for any reason any static pod gets deleted , it recreated automatically --- if its yml is available on the above locations.
+ ]# crictl ps
+
+ 
+ 
+  etcd backup:---
+ -------------------------------
+ 
+ # yum install epel-release* -y
+ # yum install etcd*  -y
+ 
+ 
+ 
+ 
+ ETCDCTL_API=3 etcdctl --endpoints=https://127.0.0.1:2379 --cacert /etc/kubernetes/pki/etcd/ca.crt --cert /etc/kubernetes/pki/etcd/healthcheck-client.crt --key /etc/kubernetes/pki/etcd/healthcheck-client.key snapshot save myetcdsnap.db
+ 
+ ETCDCTL_API=3 etcdctl --endpoints=https://127.0.0.1:2379 --cacert /etc/kubernetes/pki/etcd/ca.crt --cert /etc/kubernetes/pki/etcd/healthcheck-client.crt --key /etc/kubernetes/pki/etcd/healthcheck-client.key snapshot status myetcdsnap.db
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ for restore:---
+ 
+ # ETCDCTL_API=3 etcdctl --endpoints=https://127.0.0.1:2379 --cacert /etc/kubernetes/pki/etcd/ca.crt --cert /etc/kubernetes/pki/etcd/healthcheck-client.crt --key /etc/kubernetes/pki/etcd/healthcheck-client.key snapshot restore myetcdsnap.db
+
+After performing restore operation---- a folder with the name of default.etcd will be created automatically inside the location where backup was there.
+
+#cd default.etcd/
+#rm -rf  /var/lib/etc/member
+#mv  member   /var/lib/etcd/
+
+now to to check wheather your resources are available or not...
+
+if you are unable to get -------- restart your cluster.
+
+
+
+
+
+if /etc/kubernetes/manifests/etcd.yaml file is not available:---
+-----------------------------------------------------------------------------------------------
+
+#kubectl get pods
+#kubectl get nodes  ---------------------------- no o/p will come
+
+
+For troubleshooting:---
+
+##journalctl -u kubelet -f 
+#systemctl status kubelet
+#crictl ps  --------------------------- to know  the name of all the pods that running in master
+
+if you have taken any backup of etcd.yaml file....
+then copy that file in in its original location.
+
+#cp etcd.yaml   /etc/kubernetes/manifests/
+
+now check:---
+---------------------
+#crictl ps
+#kubectl get nodes
+
+           
+           
+           
+           
+           
+           
+                                                         
+                                                                    
+                                                                    
+                                                                    
+                                                                    
+                                                                 
