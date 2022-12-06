@@ -1,4 +1,4 @@
-                                                                    WELCOME TO    CKA TRAINING:----
+ WELCOME TO    CKA TRAINING:----
                                                                     -------------------------------------------------------
                                                                     
                 etherpad link:---    https://etherpad.opendev.org/p/admiralindia_cka
@@ -136,7 +136,15 @@ QS900RQQR0S27NEMY4     ---------------- GAURAV
 
      note:--- for new machine:----
               search---- cri-o in google---
+              
+              https://www.howtoforge.com/how-to-install-cri-o-container-runtime-on-ubuntu-22-04/
+              https://github.com/cri-o/cri-o/blob/main/install.md#apt-based-operating-systems
+              
                          kubeadm  install cluster  ----- in google------   open first page--- select "installing kubeadm"
+                         
+                         https://kubernetes.io/docs/tasks/tools/install-kubectl-linux/
+                         https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/install-kubeadm/
+                         
                          ---- here we will get everything.
 
 4> install & start cri-o (in all machines)
@@ -178,6 +186,8 @@ If face any issue:--- to solve that:---
 #kubeadm token create --print-join-command
 #kubeadm token list 
 
+kubeadm join 192.168.210.128:6443 --token mdcnn8.0a5pn9o202caiz0q \
+	--discovery-token-ca-cert-hash sha256:5cd7d0308dd5bd4ccc70edff4b09cfa52054dfc53910c6737e7b9a0e95c55cb7 
 
 
 8> install calico (Only  on master node):---
@@ -1777,14 +1787,3 @@ now check:---
 #kubectl get nodes
 
            
-           
-           
-           
-           
-           
-                                                         
-                                                                    
-                                                                    
-                                                                    
-                                                                    
-                                                                 
