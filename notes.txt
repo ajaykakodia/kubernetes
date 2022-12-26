@@ -186,8 +186,8 @@ If face any issue:--- to solve that:---
 #kubeadm token create --print-join-command
 #kubeadm token list 
 
-kubeadm join 192.168.210.128:6443 --token mdcnn8.0a5pn9o202caiz0q \
-	--discovery-token-ca-cert-hash sha256:5cd7d0308dd5bd4ccc70edff4b09cfa52054dfc53910c6737e7b9a0e95c55cb7 
+sudo kubeadm join 192.168.210.128:6443 --token 12x59s.sczzhkn9c93ka0nd \
+	--discovery-token-ca-cert-hash sha256:8ab5e86146daf0618e726209b25c465d9e218f89df3b2e23041c8cf263aa370d   --cri-socket /var/run/crio/crio.sock
 
 
 8> install calico (Only  on master node):---
